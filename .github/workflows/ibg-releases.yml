@@ -1,4 +1,4 @@
-name: IB Gateway Releases
+name: IB Gateway Release
 
 on:
   schedule:
