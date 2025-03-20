@@ -50,8 +50,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           dest='ibcontroller-${{ steps.version.outputs.build_version }}-linux.zip'
-          gh release download ${{ steps.version.outputs.build_version }} -R ${{ env.SRC_REPO }} -p '*Linux*.zip'
-          mv "*Linux*.zip" "$dest"
+          gh release download ${{ steps.version.outputs.build_version }} -R ${{ env.SRC_REPO }} -p '*Linux*.zip' && mv *Linux*.zip "$dest"
           sha256sum "$dest" > "${dest}.sha256"
 
       - name: Create release
