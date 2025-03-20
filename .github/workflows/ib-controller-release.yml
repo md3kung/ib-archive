@@ -25,6 +25,8 @@ jobs:
 
       - name: Get latest version
         id: version
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           build_version=$(gh release list -R ${{ env.SRC_REPO }} --exclude-drafts --exclude-pre-releases | grep 'Latest' | cut -f3)
           echo "build_version=$build_version" >> $GITHUB_OUTPUT
@@ -44,6 +46,8 @@ jobs:
 
       - name: Download the update
         if: ${{ steps.check-update.outputs.has_update == 'true' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           dest='ibcontroller-${{ steps.version.outputs.build_version }}-linux.zip'
           gh release download ${{ steps.version.outputs.build_version }} -R ${{ env.SRC_REPO }} -p '*Linux*.zip'
